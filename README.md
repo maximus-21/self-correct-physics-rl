@@ -77,7 +77,7 @@ self-correct-physics-rl/
 │   ├── engine.py              # DeepSpeed engine initialization (actor + reward models)
 │   └── trainer.py             # Core two-attempt training logic and reward computation
 ├── script/
-│   └── train.py               # Main training entry point
+    └── train.py               # Main training entry point
 ```
 
 
