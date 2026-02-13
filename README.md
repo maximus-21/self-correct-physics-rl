@@ -76,35 +76,21 @@ self-correct-physics-rl/
 │   ├── utils.py               # Shared utilities (LoRA, DeepSpeed configs, model creation, etc.)
 │   ├── engine.py              # DeepSpeed engine initialization (actor + reward models)
 │   └── trainer.py             # Core two-attempt training logic and reward computation
-├── scripts/
+├── script/
 │   └── train.py               # Main training entry point
-└── data/
-    └── .gitkeep               # Place your dataset JSON here
 ```
 
-## Installation
-
-```bash
-git clone https://github.com/<your-username>/self-correct-physics-rl.git
-cd self-correct-physics-rl
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Install the package in editable mode
-pip install -e .
-```
 
 ## Prerequisites
 
-1. **Hugging Face access**: You need access to gated models (e.g., Llama). Set your token:
+1. **Hugging Face access**: You might need access to gated models (e.g., Llama). Set your token:
    ```bash
    export HF_TOKEN=hf_your_token_here
    # or
    huggingface-cli login
    ```
 
-2. **Reward model adapter**: Train or obtain a LoRA adapter for the error-localization reward model. The adapter should be fine-tuned to output JSON in this format:
+2. **Reward model**: Train a LoRA adapter for the error-localization reward model. The adapter should be fine-tuned to output JSON in this format:
    ```json
    {
        "error_step": 3,
@@ -171,10 +157,6 @@ See `configs/default.yaml` for a complete list of configurable parameters.
 
 6. **Training**: Both attempts' log-probabilities are used in the RL loss, weighted by the reward of Attempt 2 and regularized by KL divergence.
 
-## Hardware Requirements
-
-- Minimum: 2x GPUs with 24GB VRAM (e.g., RTX 3090/4090) for 3B parameter models with LoRA
-- Recommended: 2x A100 40GB for comfortable training with the hybrid engine
 
 ## Citation
 
@@ -193,4 +175,3 @@ This project is an implementation of the SCoRe method adapted for physics proble
 
 - Based on [SCoRe](https://arxiv.org/abs/2409.12917) by Kumar et al. (Google DeepMind)
 - Built on [DeepSpeed-Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat) by Microsoft
-- Uses the [PEFT](https://github.com/huggingface/peft) library for LoRA adapters
