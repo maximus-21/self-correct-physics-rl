@@ -379,7 +379,6 @@ class DeepSpeedScoreTrainer:
             return stacked
         return stacked, torch.stack(all_log_probs)[:, prompt_len - 1:]
 
-    @torch.no_grad()
     def _get_log_probs_incremental(self, model, input_ids, generated_ids, device):
         """
         Compute log-probs for *generated_ids* given *input_ids* using KV caching.
